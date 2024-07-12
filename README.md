@@ -35,3 +35,23 @@ This header file defines the QuadTree class and its associated methods:
 - `maximumHeight`: Calculates the maximum height of the QuadTree.
 - `Display`: Displays the QuadTree nodes at a specific level.
 - `createMatrixRecursive`: Fills the matrix from the QuadTree.
+
+## Example
+For inputs:
+```
+ppwwwbpbbwwbw
+pwbwpwwbw
+```
+
+We obtain: 
+```
+QuadTree 1: ppwwwbpbbwwbw
+QuadTree 2: pwbwpwwbw
+Equalized Tree1:
+ppwwwbpbbwwpbbbbpwwww
+Equalized Tree2:
+ppwwwwpbbbbpwwwwpwwbw
+Merged QuadTree: ppwwwbbbpwwbw
+```
+
+Image representation:
