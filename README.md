@@ -53,6 +53,7 @@ Equalized Tree2:
 ppwwwwpbbbbpwwwwpwwbw
 Merged QuadTree: ppwwwbbbpwwbw
 ```
+### Image Representation:
 QuadTree1:
 
 ![alt text](https://github.com/GalanRaduM24/QuadTree-Pictures/blob/main/ReadmeImages/QuadTree1.png)
