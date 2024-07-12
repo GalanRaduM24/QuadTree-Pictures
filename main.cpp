@@ -7,21 +7,20 @@ using namespace std;
 
 ifstream fin("index.in.txt");
 
-
-
 int main() {
+    // Read the quad tree representations from the input file
     string representation1;
     string representation2;
     fin >> representation1;
     fin >> representation2;
 
-    //creere tree
+    // Create the quad trees from the representations
     int index = 0;
     QuadTree* tree1 = QuadTree::inserare_rec(representation1, index);
     index = 0;
     QuadTree* tree2 = QuadTree::inserare_rec(representation2, index);
 
-    // Afisare pre-order
+    // Display the quad trees in pre-order traversal
     cout << "QuadTree 1: ";
     tree1->preOrderTraversal();
     cout << endl;
@@ -30,24 +29,27 @@ int main() {
     tree2->preOrderTraversal();
     cout << endl;
 
-    //Egalare crengi
+    // Equalize the heights of the two quad trees
     int maxHeight = max(tree1->maximumHeight(0), tree2->maximumHeight(0));
     QuadTree* equalizedTree1 = tree1->equalizeTree(tree1, 0, maxHeight);
     QuadTree* equalizedTree2 = tree2->equalizeTree(tree2, 0, maxHeight);
+
+    // Display the equalized quad trees in pre-order traversal
     cout << "Equalized Tree1:" << endl;
     equalizedTree1->preOrderTraversal();
     cout << endl;
+
     cout << "Equalized Tree2:" << endl;
     equalizedTree2->preOrderTraversal();
     cout << endl;
 
-    // Merge la cele 2 tree egalate
+    // Merge the two equalized quad trees
     QuadTree* mergedTree = equalizedTree1->mergeTrees(equalizedTree1, equalizedTree2);
     cout << "Merged QuadTree: ";
     mergedTree->preOrderTraversal();
     cout << endl;
 
-    //afisare nivele
+    // Display the quad trees at each level for debugging purposes
     tree1->Display(0);
     cout << endl;
     tree1->Display(1);
@@ -92,8 +94,8 @@ int main() {
     vector<vector<char>> matrixEqual2 = equalizedTree2->createMatrix(imageSize);
     vector<vector<char>> matrixMerged = mergedTree->createMatrix(imageSize);
     
+    // Display the matrix representation of the images for debugging purposes
     cout << endl;
-    // Display the matrix representation of the picture
     for (int i = 0; i < imageSize; i++) {
         for (int j = 0; j < imageSize; j++) {
             cout << matrix1[i][j] << " ";
@@ -102,7 +104,6 @@ int main() {
     }
 
     cout << endl;
-    // Display the matrix representation of the picture
     for (int i = 0; i < imageSize; i++) {
         for (int j = 0; j < imageSize; j++) {
             cout << matrix2[i][j] << " ";
@@ -134,6 +135,7 @@ int main() {
         cout << endl;
     }
 
+    // Calculate the number of black pixels in the images
     int blackPixelCount1 = tree1->calculateBlackPixelCount(matrix1);
     cout << "Number of black pixels: " << blackPixelCount1 << endl;
     int blackPixelCount2 = tree2->calculateBlackPixelCount(matrix2);
@@ -141,7 +143,7 @@ int main() {
     int blackPixelCountMerged = mergedTree->calculateBlackPixelCount(matrixMerged);
     cout << "Number of black pixels: " << blackPixelCountMerged << endl;
 
-    // sterge Tree
+    // Clean up dynamically allocated memory
     delete tree1;
     delete tree2;
     delete equalizedTree1;

@@ -7,7 +7,7 @@ int max_height = 0;
 
 class QuadTree {
 public:
-    char value;
+    char value; // 'p' for parent, 'b' for black, 'w' for white
     QuadTree* topLeft;
     QuadTree* topRight;
     QuadTree* bottomLeft;
@@ -18,7 +18,7 @@ public:
         topLeft = topRight = bottomLeft = bottomRight = nullptr;
     }
 
-    // Construire
+    // Recursive function to insert nodes in the quad tree from a pre-order representation
     static QuadTree* inserare_rec(const string& representation, int& index) {
         if (index >= representation.length())
             return nullptr;
@@ -36,13 +36,14 @@ public:
         return node;
     }
 
+    // Create a matrix representation of the image from the quad tree
     vector<vector<char>> createMatrix(int size) {
         vector<vector<char>> matrix(size, vector<char>(size, ' '));
         createMatrixRecursive(this, matrix, 0, 0, size);
         return matrix;
     }
 
-    // Nr pixeli b in matrice
+    // Calculate the number of black pixels in a matrix
     int calculateBlackPixelCount(const vector<vector<char>>& matrix) {
         int count = 0;
         for (const auto& row : matrix) {
@@ -55,11 +56,12 @@ public:
         return count;
     }
 
+    // Equalize the heights of the quad tree
     QuadTree* equalizeTree(QuadTree* tree, int currentHeight, int maxHeight) {
         if (tree == nullptr)
             return nullptr;
 
-        // adaug copii frunzei
+        // If the current node is not a parent and we need to add children to reach the max height
         if (currentHeight < maxHeight && tree->value != 'p') {
             char color;
             if (tree->value == 'b') {
@@ -76,6 +78,7 @@ public:
             return equalizedNode;
         }
 
+        // Recursively equalize the children
         QuadTree* equalizedNode = new QuadTree(tree->value);
         equalizedNode->topRight = equalizeTree(tree->topRight, currentHeight + 1, maxHeight);
         equalizedNode->topLeft = equalizeTree(tree->topLeft, currentHeight + 1, maxHeight);
@@ -85,7 +88,7 @@ public:
         return equalizedNode;
     }
    
-    // Merge 2 Tree
+    // Merge two quad trees
     QuadTree* mergeTrees(QuadTree* tree1, QuadTree* tree2) {
         if (tree1 == nullptr)
             return tree2;
@@ -99,14 +102,14 @@ public:
                 return new QuadTree('w');
         }
 
+        // Merge the children
         QuadTree* mergedNode = new QuadTree('p');
-
         mergedNode->topRight = mergeTrees(tree1->topRight, tree2->topRight);
         mergedNode->topLeft = mergeTrees(tree1->topLeft, tree2->topLeft);
         mergedNode->bottomLeft = mergeTrees(tree1->bottomLeft, tree2->bottomLeft);
         mergedNode->bottomRight = mergeTrees(tree1->bottomRight, tree2->bottomRight);
 
-        // daca avem frunze de aceeasi culoare sub un p creeam doar o culoare
+        // If all children are leaves of the same color, collapse the node
         if (mergedNode->topRight != nullptr && mergedNode->topLeft->value == mergedNode->topRight->value &&
             mergedNode->topLeft->value == mergedNode->bottomLeft->value && mergedNode->topLeft->value == mergedNode->bottomRight->value &&
             mergedNode->topRight->value != 'p') {
@@ -124,7 +127,8 @@ public:
 
         return mergedNode;
     }
-    // parcurgere preOrdre
+
+    // Pre-order traversal of the quad tree
     void preOrderTraversal() {
         cout << value;
 
@@ -140,6 +144,7 @@ public:
         }
     }
 
+    // Calculate the maximum height of the quad tree
     int maximumHeight(int level)
     {
         if (topLeft != NULL)
@@ -167,6 +172,7 @@ public:
         return max_height;
     }
 
+    // Display the quad tree values at a specific level
     void Display(int level)
     {
         if (level == 0)
@@ -183,8 +189,7 @@ public:
         }
     }
 
-
-    // Creeare matrice
+    // Recursive function to fill the matrix from the quad tree
     void createMatrixRecursive(QuadTree* node, vector<vector<char>>& matrix, int row, int col, int size) {
         if (node->value == 'b' || node->value == 'w') {
             // Fill the corresponding region in the matrix with the pixel value
@@ -195,6 +200,7 @@ public:
             }
         }
         else if (node->value == 'p') {
+            // Recursively fill the four quadrants
             createMatrixRecursive(node->topLeft, matrix, row, col, size / 2);
             createMatrixRecursive(node->topRight, matrix, row, col + size / 2, size / 2);
             createMatrixRecursive(node->bottomLeft, matrix, row + size / 2, col, size / 2);
