@@ -55,3 +55,4 @@ Merged QuadTree: ppwwwbbbpwwbw
 ```
 
 Image representation:
+https://github.com/GalanRaduM24/QuadTree-Pictures/blob/main/ReadmeImages/MergedTree.png
