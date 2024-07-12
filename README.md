@@ -53,6 +53,16 @@ Equalized Tree2:
 ppwwwwpbbbbpwwwwpwwbw
 Merged QuadTree: ppwwwbbbpwwbw
 ```
+QuadTree1:
 
-Image representation:
-https://github.com/GalanRaduM24/QuadTree-Pictures/blob/main/ReadmeImages/MergedTree.png
+![alt text](https://github.com/GalanRaduM24/QuadTree-Pictures/blob/main/ReadmeImages/QuadTree1.png)
+
+QuadTree2:
+
+![alt text](https://github.com/GalanRaduM24/QuadTree-Pictures/blob/main/ReadmeImages/QuadTree2.png)
+
+
+MergedTree:
+
+![alt text](https://github.com/GalanRaduM24/QuadTree-Pictures/blob/main/ReadmeImages/MergedTree.png)
+
